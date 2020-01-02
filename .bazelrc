@@ -1,0 +1,5 @@
+common
+build -c dbg --color=yes --action_env="CC=clang++"
+test -c dbg  --test_output=all --action_env="GTEST_COLOR=1" --color=yes --action_env="CC=clang++"
+run -c opt --color=yes --action_env="CC=clang++"
+coverage --color=yes --action_env="CC=clang++"
