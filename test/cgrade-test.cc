@@ -1,6 +1,6 @@
 #include <vector>
 
-#include "lib/cgrade.h"
+#include "cgrade/cgrade.h"
 
 TEST_CASE( "vectors can be sized and resized", "[vector]" ) {
   std::vector<int> v( 5 );
