@@ -10,36 +10,38 @@
 namespace Catch {
 
 class GradescopeReporter : public CumulativeReporterBase<GradescopeReporter> {
-    public:
-    GradescopeReporter(ReporterConfig const& _config);
+ public:
+  GradescopeReporter(const ReporterConfig& config);
+  ~GradescopeReporter() override;
 
-    ~GradescopeReporter() override;
+  static std::string getDescription();
 
-    static std::string getDescription();
+  void noMatchingTestCases(const std::string& spec) override;
+  void testRunStarting(const TestRunInfo& runInfo) override;
+  void testGroupStarting(const GroupInfo& groupInfo) override;
+  void testCaseStarting(const TestCaseInfo& testCaseInfo) override;
+  bool assertionEnded(const AssertionStats& assertionStats) override;
+  void testCaseEnded(const TestCaseStats& testCaseStats) override;
+  void testGroupEnded(const TestGroupStats& testGroupStats) override;
+  void testRunEndedCumulative() override;
 
-    void noMatchingTestCases(std::string const& /*spec*/) override;
-    void testRunStarting(TestRunInfo const& runInfo) override;
-    void testGroupStarting(GroupInfo const& groupInfo) override;
-    void testCaseStarting(TestCaseInfo const& testCaseInfo) override;
-    bool assertionEnded(AssertionStats const& assertionStats) override;
-    void testCaseEnded(TestCaseStats const& testCaseStats) override;
-    void testGroupEnded(TestGroupStats const& testGroupStats) override;
-    void testRunEndedCumulative() override;
+  void writeGroup(const TestGroupNode& groupNode, double suiteTime);
+  void writeTestCase(const TestCaseNode& testCaseNode);
+  void writeAssertions(const SectionNode& sectionNode);
+  void writeAssertion(const AssertionStats& stats);
+  void writeSection(
+    const std::string& className,
+    const std::string& rootName,
+    const SectionNode& sectionNode
+  );
 
-    void writeGroup(TestGroupNode const& groupNode, double suiteTime);
-    void writeTestCase(TestCaseNode const& testCaseNode);
-    void writeAssertions(SectionNode const& sectionNode);
-    void writeAssertion(AssertionStats const& stats);
-    void writeSection(std::string const& className,
-                    std::string const& rootName,
-                    SectionNode const& sectionNode);
-
-    XmlWriter xml;
-    Timer suiteTimer;
-    std::string stdOutForSuite;
-    std::string stdErrForSuite;
-    unsigned int unexpectedExceptions = 0;
-    bool m_okToFail = false;
+ private:
+  XmlWriter xml;
+  Timer suiteTimer;
+  std::string stdOutForSuite;
+  std::string stdErrForSuite;
+  unsigned int unexpectedExceptions = 0;
+  bool m_okToFail = false;
 };
 
 } // end namespace Catch
