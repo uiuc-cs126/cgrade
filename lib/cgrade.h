@@ -6,5 +6,4 @@
 
 #include "catch_reporter_gradescope.h"
 
-
 #endif // LIB_CGRADE_H_
