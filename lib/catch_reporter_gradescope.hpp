@@ -61,7 +61,7 @@ void GradescopeReporter::testRunEndedCumulative() {
     });
   }
 
-  m_config->stream() << root.dump(2);
+  m_config->stream() << root.dump();
 }
 
 void GradescopeReporter::writeTestCase(const TestCaseNode& testCaseNode) {
